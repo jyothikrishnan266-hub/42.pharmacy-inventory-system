@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pharmacy Inventory System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <h2>💊 MediStock</h2>
+    <p class="side-label">INVENTORY</p>
+    <a href="#dashboard" class="active">▦ Dashboard</a>
+    <a href="#inventory">▤ Medicines</a>
+    <a href="#medicine-form">＋ Add Medicine</a>
+    <div class="side-footer">Pharmacy Management</div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div>
+        <h1>Pharmacy Inventory</h1>
+        <p>Manage your medicine stock efficiently.</p>
+      </div>
+      <span class="admin">👤 Admin</span>
+    </header>
+
+    <section id="dashboard" class="stats">
+      <article class="stat-card">
+        <span>Total Medicines</span>
+        <h2 id="totalMedicines">0</h2>
+        <small>Unique medicine records</small>
+      </article>
+      <article class="stat-card">
+        <span>Total Stock Units</span>
+        <h2 id="totalStock">0</h2>
+        <small>Units available</small>
+      </article>
+      <article class="stat-card warning">
+        <span>Low Stock</span>
+        <h2 id="lowStock">0</h2>
+        <small>10 units or fewer</small>
+      </article>
+      <article class="stat-card danger">
+        <span>Expired Medicines</span>
+        <h2 id="expiredStock">0</h2>
+        <small>Past expiry date</small>
+      </article>
+    </section>
+
+    <section class="panel" id="medicine-form">
+      <div class="panel-heading">
+        <div>
+          <h2 id="formTitle">Add New Medicine</h2>
+          <p>Enter medicine and stock details.</p>
+        </div>
+      </div>
+
+      <form id="medicineForm">
+        <input type="hidden" id="medicineId">
+
+        <div class="form-grid">
+          <label>
+            Medicine Name *
+            <input id="name" required maxlength="100"
+              placeholder="e.g. Paracetamol">
+          </label>
+          <label>
+            Batch Number *
+            <input id="batch" required maxlength="50"
+              placeholder="e.g. BTH001">
+          </label>
+          <label>
+            Category *
+            <select id="category" required>
+              <option value="">Select category</option>
+              <option>Tablet</option>
+              <option>Capsule</option>
+              <option>Syrup</option>
+              <option>Injection</option>
+              <option>Ointment</option>
+              <option>Other</option>
+            </select>
+          </label>
+          <label>
+            Quantity *
+            <input id="quantity" type="number" min="0"
+              step="1" required placeholder="100">
+          </label>
+          <label>
+            Unit Price (₹) *
+            <input id="price" type="number" min="0"
+              step="0.01" required placeholder="10.00">
+          </label>
+          <label>
+            Expiry Date *
+            <input id="expiry" type="date" required>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" id="saveBtn">
+            + Add Medicine
+          </button>
+          <button type="button" id="cancelEdit" class="btn-secondary"
+            hidden>Cancel Edit</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel" id="inventory">
+      <div class="inventory-heading">
+        <div>
+          <h2>Medicine Inventory</h2>
+          <p>Search and manage your stock records.</p>
+        </div>
+        <button class="btn-secondary" id="exportBtn">
+          Export CSV
+        </button>
+      </div>
+
+      <div class="toolbar">
+        <input id="searchInput" type="search"
+          placeholder="Search medicine or batch number...">
+        <select id="filterStatus" aria-label="Filter inventory">
+          <option value="all">All Medicines</option>
+          <option value="low">Low Stock</option>
+          <option value="expired">Expired</option>
+          <option value="valid">Not Expired</option>
+        </select>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Medicine</th>
+              <th>Batch No.</th>
+              <th>Category</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Expiry</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="medicineTable"></tbody>
+        </table>
+      </div>
+      <p id="emptyMessage" class="empty-message" hidden>
+        No medicines found. Add a medicine to get started.
+      </p>
+      <div class="table-footer" id="tableCount">0 records</div>
+    </section>
+
+    <footer>
+      Pharmacy Inventory System · Demo Project
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
